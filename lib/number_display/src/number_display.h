@@ -1,0 +1,4 @@
+class NumberDisplay {
+public:
+	NumberDisplay();
+};
