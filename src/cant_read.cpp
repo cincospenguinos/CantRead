@@ -14,10 +14,10 @@ BlockCalculator calculator3;
 void CantRead::drawWatchFace() {
 	display.fillScreen(0);
 
-	calculator0.setNumber(0);
-	calculator1.setNumber(1);
-	calculator2.setNumber(2);
-	calculator3.setNumber(3);
+	calculator0.setNumber(8);
+	calculator1.setNumber(9);
+	calculator2.setNumber(6);
+	calculator3.setNumber(7);
 
 	drawNumber(calculator0, 0);
 	drawNumber(calculator1, 1);
