@@ -1,4 +1,0 @@
-class NumberDisplay {
-public:
-	NumberDisplay();
-};
