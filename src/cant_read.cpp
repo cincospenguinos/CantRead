@@ -2,27 +2,54 @@
 
 #define SCREEN_COLOR_BLACK 0
 #define SCREEN_COLOR_WHITE 1
-#define NUMBER_SIZE 4
+#define NUMBER_SIZE 20
+#define SECTOR_SIZE 100
+#define BLOCKS_PER_SECTOR SECTOR_SIZE / NUMBER_SIZE
 
-static const uint8_t _large_pixel_bitmap[] = {
-	SCREEN_COLOR_WHITE, SCREEN_COLOR_WHITE, SCREEN_COLOR_WHITE, SCREEN_COLOR_WHITE,
-	SCREEN_COLOR_WHITE, SCREEN_COLOR_WHITE, SCREEN_COLOR_WHITE, SCREEN_COLOR_WHITE,
-	SCREEN_COLOR_WHITE, SCREEN_COLOR_WHITE, SCREEN_COLOR_WHITE, SCREEN_COLOR_WHITE,
-	SCREEN_COLOR_WHITE, SCREEN_COLOR_WHITE, SCREEN_COLOR_WHITE, SCREEN_COLOR_WHITE,
-};
+BlockCalculator calculator0;
+BlockCalculator calculator1;
+BlockCalculator calculator2;
+BlockCalculator calculator3;
 
 void CantRead::drawWatchFace() {
 	display.fillScreen(0);
 
-	// Let's draw a zero
-	display.drawInvertedBitmap(NUMBER_SIZE * 1, NUMBER_SIZE * 1, _large_pixel_bitmap, NUMBER_SIZE, NUMBER_SIZE, SCREEN_COLOR_WHITE);
-	display.drawInvertedBitmap(NUMBER_SIZE * 2, NUMBER_SIZE * 1, _large_pixel_bitmap, NUMBER_SIZE, NUMBER_SIZE, SCREEN_COLOR_WHITE);
-	display.drawInvertedBitmap(NUMBER_SIZE * 3, NUMBER_SIZE * 1, _large_pixel_bitmap, NUMBER_SIZE, NUMBER_SIZE, SCREEN_COLOR_WHITE);
-	display.drawInvertedBitmap(NUMBER_SIZE * 1, NUMBER_SIZE * 2, _large_pixel_bitmap, NUMBER_SIZE, NUMBER_SIZE, SCREEN_COLOR_WHITE);
-	display.drawInvertedBitmap(NUMBER_SIZE * 2, NUMBER_SIZE * 2, _large_pixel_bitmap, NUMBER_SIZE, NUMBER_SIZE, SCREEN_COLOR_WHITE);
-	display.drawInvertedBitmap(NUMBER_SIZE * 3, NUMBER_SIZE * 2, _large_pixel_bitmap, NUMBER_SIZE, NUMBER_SIZE, SCREEN_COLOR_WHITE);
-	display.drawInvertedBitmap(NUMBER_SIZE * 1, NUMBER_SIZE * 3, _large_pixel_bitmap, NUMBER_SIZE, NUMBER_SIZE, SCREEN_COLOR_WHITE);
-	display.drawInvertedBitmap(NUMBER_SIZE * 2, NUMBER_SIZE * 3, _large_pixel_bitmap, NUMBER_SIZE, NUMBER_SIZE, SCREEN_COLOR_WHITE);
-	display.drawInvertedBitmap(NUMBER_SIZE * 3, NUMBER_SIZE * 3, _large_pixel_bitmap, NUMBER_SIZE, NUMBER_SIZE, SCREEN_COLOR_WHITE);
-	display.drawInvertedBitmap(NUMBER_SIZE * 0, NUMBER_SIZE * 0, _large_pixel_bitmap, NUMBER_SIZE, NUMBER_SIZE, SCREEN_COLOR_BLACK);
+	calculator0.setNumber(0);
+	calculator1.setNumber(1);
+	calculator2.setNumber(2);
+	calculator3.setNumber(3);
+
+	drawNumber(calculator0, 0);
+	drawNumber(calculator1, 1);
+	drawNumber(calculator2, 2);
+	drawNumber(calculator3, 3);
+}
+
+void CantRead::drawNumber(BlockCalculator &calculator, int16_t sector) {
+	for (int16_t y = 0; y < 5; y++) {
+		for (int16_t x = 0; x < 5; x++) {
+			if (calculator.mustDrawForCurrentNumber(x, y)) {
+				drawBlockAt(sector, x, y);
+			}
+		}
+	}
+}
+
+void CantRead::drawBlockAt(int16_t sector, int16_t x, int16_t y) {
+	int xPos = x * NUMBER_SIZE;
+	int yPos = y * NUMBER_SIZE;
+
+	if (sector % 2 == 1) {
+		xPos += SECTOR_SIZE;
+	}
+
+	if (sector >= 2) {
+		yPos += SECTOR_SIZE;
+	}
+
+	for(int i = 0; i < NUMBER_SIZE; i++) {
+		for(int j = 0; j < NUMBER_SIZE; j++) {
+			display.drawPixel(xPos + i, yPos + j, SCREEN_COLOR_WHITE);
+		}
+	}
 }

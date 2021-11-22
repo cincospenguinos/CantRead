@@ -11,11 +11,27 @@ static const char zero[] = {
 };
 
 static const char one[] = {
-	0, 0, 0, 0, 1,
-	0, 0, 0, 0, 1,
-	0, 0, 0, 0, 1,
-	0, 0, 0, 0, 1,
-	0, 0, 0, 0, 1,
+	1, 1, 1, 1, 0,
+	1, 1, 1, 1, 0,
+	1, 1, 1, 1, 0,
+	1, 1, 1, 1, 0,
+	1, 1, 1, 1, 0,
+};
+
+static const char two[] = {
+	0, 0, 0, 0, 0,
+	1, 1, 1, 1, 0,
+	0, 0, 0, 0, 0,
+	0, 1, 1, 1, 1,
+	0, 0, 0, 0, 0,
+};
+
+static const char three[] = {
+	0, 0, 0, 0, 0,
+	1, 1, 1, 1, 0,
+	0, 0, 0, 0, 0,
+	1, 1, 1, 1, 0,
+	0, 0, 0, 0, 0,
 };
 
 BlockCalculator::BlockCalculator() {}
@@ -34,6 +50,12 @@ bool BlockCalculator::mustDrawForCurrentNumber(int16_t x, int16_t y) {
 	switch(_number) {
 	case 1:
 		num = one;
+		break;
+	case 2:
+		num = two;
+		break;
+	case 3:
+		num = three;
 		break;
 	default:
 		num = zero;
