@@ -24,9 +24,23 @@ void test_BlockCalculatorSetsZeroCorrectly() {
 	}
 }
 
+void test_BlockCalculatorSetsOneCorrectly() {
+	BlockCalculator calculator;
+	calculator.setNumber(1);
+
+	for (int y = 0; y < 4; y++) {
+		for (int x = 0; x < 3; x++) {
+			TEST_ASSERT_FALSE(calculator.mustDrawForCurrentNumber(x, y));
+		}
+
+		TEST_ASSERT_TRUE(calculator.mustDrawForCurrentNumber(4, y));
+	}
+}
+
 int main(void) {
 	UNITY_BEGIN();
 	RUN_TEST(test_BlockCalculatorInstantiates);
 	RUN_TEST(test_BlockCalculatorSetsZeroCorrectly);
+	RUN_TEST(test_BlockCalculatorSetsOneCorrectly);
 	return UNITY_END();
 }

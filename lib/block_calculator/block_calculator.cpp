@@ -10,6 +10,14 @@ static const char zero[] = {
 	0, 0, 0, 0, 0,
 };
 
+static const char one[] = {
+	0, 0, 0, 0, 1,
+	0, 0, 0, 0, 1,
+	0, 0, 0, 0, 1,
+	0, 0, 0, 0, 1,
+	0, 0, 0, 0, 1,
+};
+
 BlockCalculator::BlockCalculator() {}
 
 void BlockCalculator::setNumber(uint8_t number) {
@@ -24,6 +32,9 @@ bool BlockCalculator::mustDrawForCurrentNumber(int16_t x, int16_t y) {
 	const char * num;
 
 	switch(_number) {
+	case 1:
+		num = one;
+		break;
 	default:
 		num = zero;
 		break;
