@@ -4,25 +4,25 @@
 #define SCREEN_COLOR_WHITE 1
 #define NUMBER_SIZE 20
 #define SECTOR_SIZE 100
-#define BLOCKS_PER_SECTOR SECTOR_SIZE / NUMBER_SIZE
 
-BlockCalculator calculator0;
-BlockCalculator calculator1;
-BlockCalculator calculator2;
-BlockCalculator calculator3;
+static BlockCalculator calculators[] = {
+	BlockCalculator(),
+	BlockCalculator(),
+	BlockCalculator(),
+	BlockCalculator(),
+};
 
 void CantRead::drawWatchFace() {
 	display.fillScreen(0);
 
-	calculator0.setNumber(8);
-	calculator1.setNumber(9);
-	calculator2.setNumber(6);
-	calculator3.setNumber(7);
+	calculators[0].setNumber(currentTime.Hour / 10);
+	calculators[1].setNumber(currentTime.Hour % 10);
+	calculators[2].setNumber(currentTime.Minute / 10);
+	calculators[3].setNumber(currentTime.Minute % 10);
 
-	drawNumber(calculator0, 0);
-	drawNumber(calculator1, 1);
-	drawNumber(calculator2, 2);
-	drawNumber(calculator3, 3);
+	for (int16_t sector = 0; sector < 4; sector++) {
+		drawNumber(calculators[sector], sector);
+	}
 }
 
 void CantRead::drawNumber(BlockCalculator &calculator, int16_t sector) {

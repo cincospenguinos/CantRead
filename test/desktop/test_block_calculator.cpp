@@ -319,6 +319,7 @@ void test_BlockCalculatorSetsNineCorrectly() {
 
 int main(void) {
 	UNITY_BEGIN();
+
 	RUN_TEST(test_BlockCalculatorInstantiates);
 	RUN_TEST(test_BlockCalculatorSetsZeroCorrectly);
 	RUN_TEST(test_BlockCalculatorSetsOneCorrectly);
@@ -330,5 +331,6 @@ int main(void) {
 	RUN_TEST(test_BlockCalculatorSetsSevenCorrectly);
 	RUN_TEST(test_BlockCalculatorSetsEightCorrectly);
 	RUN_TEST(test_BlockCalculatorSetsEightCorrectly);
+
 	return UNITY_END();
 }
