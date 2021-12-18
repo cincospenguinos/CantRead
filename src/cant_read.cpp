@@ -47,9 +47,5 @@ void CantRead::drawBlockAt(int16_t sector, int16_t x, int16_t y) {
 		yPos += SECTOR_SIZE;
 	}
 
-	for (int i = 0; i < NUMBER_SIZE; i++) {
-		for (int j = 0; j < NUMBER_SIZE; j++) {
-			display.drawPixel(xPos + i, yPos + j, SCREEN_COLOR_WHITE);
-		}
-	}
+	display.fillRect(xPos, yPos, NUMBER_SIZE, NUMBER_SIZE, SCREEN_COLOR_WHITE);
 }
